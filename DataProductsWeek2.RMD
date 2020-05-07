@@ -1,0 +1,84 @@
+---
+title: "DataProductsWeek2"
+author: "rmydeen"
+date: "5/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+Create a web page using R Markdown that features a map created with Leaflet for Week 2 assignment for Data Products module.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!
+
+## Review criteria
+The rubric contains the following two questions:
+
+Does the web page feature a date and is this date less than two months before the date that you're grading this assignment?
+Does the web page feature an interactive map that appears to have been created with Leaflet?
+
+## Summary
+
+This assignment creates landmark in India for tourist attractions near Bengaluru called silicon valley of India.
+
+First plot creates landmark around Bengaluru and second one creates cluster of attractions in Karnataka State in India where Bengaluru City located.
+
+```{r echo=FALSE}
+library(leaflet)
+library(knitr)
+library(dplyr)
+```
+
+This map shows tourist attractions in Bengaluru City,Karnataka State in India.
+
+### Bangalore Attractions
+- Lalbagh Garden
+- Fort
+- Palace
+- Planetarium
+- Cubbon Park
+- Vidhana Soudha
+
+Popup links will point to wiki pages to provide details
+
+```{r echo=FALSE}
+blr_attractions <- leaflet() %>% 
+  addTiles() %>%  # Default OpenStreetMap map tiles
+  addMarkers(lat=12.9507484, lng=77.5825886, popup='<a href="https://en.wikipedia.org/wiki/Lal_Bagh">Lalbagh Botanical Garden, Bengaluru</a>') %>%
+  addMarkers(lat=12.9629061,lng=77.5738578, popup='<a href="https://en.wikipedia.org/wiki/Bangalore_Fort">Bangalore Fort, Bengaluru') %>%
+  addMarkers(lat=12.9987182,lng=77.5899305, popup='<a href="https://en.wikipedia.org/wiki/Bangalore_Palace">Bangalore Palace, Bengaluru') %>%
+  addMarkers(lat=12.9848717,lng=77.5874454, popup='<a href="https://en.wikipedia.org/wiki/Nehru_Planetarium">Jawaharlal Nehru Planetarium,Bengaluru') %>%
+  addMarkers(lat=12.9763654,lng=77.5907208, popup='<a href="https://en.wikipedia.org/wiki/Cubbon_Park">Cubbon Park, Bengaluru') %>%
+  addMarkers(lat=12.9796786,lng=77.5890556, popup='<a href="https://en.wikipedia.org/wiki/Vidhana_Soudha">Suvarna Vidhana Soudha, Bengaluru')
+
+  
+blr_attractions  # Print the map for Bengaluru attractions
+```
+
+## Cluster of Location in and around Karnataka - 100
+Samples from below co-ordinates picked
+12.3028262,76.6525193 - Mysuru Palace
+12.9763654,77.5907208 - Cubbon Park
+15.3332002,76.4589573 - Humpi
+```{r echo=TRUE}
+#12.3028262,76.6525193 - Mysuru Palace
+# 12.9763654,77.5907208 - Cubbon Park
+#15.3332002,76.4589573 - Humpi
+karnataka_cluster <- data.frame(lat=runif(100, min=12.30, max =15.35 ),
+                 lng=runif(100, min=76.42, max = 77.60 ))  
+
+```
+```{r echo=TRUE}
+karnataka_cluster %>%
+leaflet() %>%
+addTiles() %>%  
+addMarkers(clusterOptions = markerClusterOptions()) 
+```
+
+## Summary
+Above plot depicts Bengaluru tourist attractions and random locations in karnataka for assignment.
